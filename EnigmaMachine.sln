@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnigmaUI", "EnigmaUI\EnigmaUI.csproj", "{215FAC9D-BCCE-4064-AE76-FE6EF2A139E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnigmaClassLibrary", "EnigmaClassLibrary\EnigmaClassLibrary.csproj", "{2D4BCE24-1C96-46A3-9A5A-779500CE4608}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{215FAC9D-BCCE-4064-AE76-FE6EF2A139E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{215FAC9D-BCCE-4064-AE76-FE6EF2A139E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{215FAC9D-BCCE-4064-AE76-FE6EF2A139E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{215FAC9D-BCCE-4064-AE76-FE6EF2A139E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4BCE24-1C96-46A3-9A5A-779500CE4608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4BCE24-1C96-46A3-9A5A-779500CE4608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4BCE24-1C96-46A3-9A5A-779500CE4608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4BCE24-1C96-46A3-9A5A-779500CE4608}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3964C3B-F7EF-4CC9-93BF-1766F110A0E7}
+	EndGlobalSection
+EndGlobal
