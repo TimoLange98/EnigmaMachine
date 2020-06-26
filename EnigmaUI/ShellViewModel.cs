@@ -1,12 +1,10 @@
 ﻿using Caliburn.Micro;
+using System.Reactive.Linq;
 using EnigmaClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnigmaUI
 {
@@ -14,6 +12,8 @@ namespace EnigmaUI
     {
         public ShellViewModel()
         {
+           
+
             //ComboBoxItems = GetComboBoxItems();
 
             //RotorPaths = Directory.GetFiles(new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName +
@@ -35,12 +35,19 @@ namespace EnigmaUI
         public string ReflectorLabelText { get; set; } = "Reflector";
         public string PlugboardLabelText { get; set; } = "Plugboard";
         public string ApplyButtonContent { get; set; } = "Apply";
+        public string FastInitButtonContent { get; set; } = "Fast init";
+
+        public string ArrowUp { get; set; } = "↑";
+        public string ArrowDown { get; set; } = "↓";
+        public string ArrowRight { get; set; } = "→";
 
         public List<string> RotorPaths { get; set; } 
         public List<string> ReflectorPaths { get; set; } 
-        public List<string> PlugboardPaths { get; set; } 
+        public List<string> PlugboardPaths { get; set; }
+
 
         public List<ComboBoxItem> ComboBoxItems { get; set; }
+
 
         private List<ComboBoxItem> GetComboBoxItems()
         {
@@ -68,9 +75,9 @@ namespace EnigmaUI
         public string ReflectorPath;
         public string PlugboardPath;
 
-        public int LeftRotorState = 1;
-        public int MiddleRotorState = 1;
-        public int RightRotorState = 1;
+        public int LeftRotorState { get; set; } = 1;
+        public int MiddleRotorState { get; set; } = 1;
+        public int RightRotorState { get; set; } = 1;
 
         public int LeftRotorStateAfterApplied;
         public int MiddleRotorStateAfterApplied;
