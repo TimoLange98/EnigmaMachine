@@ -7,10 +7,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnigmaUI"
         mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance Type=local:ShellViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=local:ShellViewModel}"
         FontSize="12"
-        Title="The Enigma Machine" Height="600" Width="800">
+        Title="The Enigma Machine" Height="600" Width="800" PreviewKeyDown="MetroWindow_PreviewKeyDown">
 
+    <mah:MetroWindow.Resources>
+        <local:VisibilityConverter x:Key="VisibilityConverter"/>
+    </mah:MetroWindow.Resources>
 
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -27,73 +30,84 @@
             </Grid.RowDefinitions>
 
             <Border  BorderBrush="Black" BorderThickness="0 0 0 2" Margin="0 0 0 10">
-                <TextBlock Grid.Row="0" Text="{Binding HeaderLabelContent}" FontSize="36" TextAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock Grid.Row="0" Text="Enigma" FontSize="36" TextAlignment="Center" Margin="0 0 0 5"/>
             </Border>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="75"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="110"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="0 0 0 5">
-                    <TextBlock Text="{Binding LeftRotorLabelText}" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding ComboBoxItems}" DisplayMemberPath="Text" Margin="5"/>
-                    <Button Content="{Binding ArrowUp}" Height="25" Width="50"/>
+                    <TextBlock Text="Left Rotor" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding RotorComboBoxItems}" IsEnabled="{Binding NotStarted}" SelectedItem="{Binding SelectedLeftRotor}" DisplayMemberPath="Text" Margin="5"/>
+                    <Button Content="↑" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="LeftRotorStateUp"/>
                     <TextBlock Text="{Binding LeftRotorState}" TextAlignment="Center" Padding="0 10 0 0 " Height="35" Width="35" Margin="5" Background="LightGray"/>
-                    <Button Content="{Binding ArrowDown}" Height="25" Width="50"/>
+                    <Button Content="↓" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="LeftRotorStateDown"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Grid.Column="1" Text="{Binding MiddleRotorLabelText}" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding ComboBoxItems}" DisplayMemberPath="Text" Margin="5"/>
-                    <Button Content="{Binding ArrowUp}" Height="25" Width="50"/>
-                    <TextBlock Text="{Binding LeftRotorState}" TextAlignment="Center" Padding="0 10 0 0 " Height="35" Width="35" Margin="5" Background="LightGray"/>
-                    <Button Content="{Binding ArrowDown}" Height="25" Width="50"/>
+                    <TextBlock Grid.Column="1" Text="Middle Rotor" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding RotorComboBoxItems}" IsEnabled="{Binding NotStarted}" SelectedItem="{Binding SelectedMiddleRotor}" DisplayMemberPath="Text" Margin="5"/>
+                    <Button Content="↑" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="MiddleRotorStateUp"/>
+                    <TextBlock Text="{Binding MiddleRotorState}" TextAlignment="Center" Padding="0 10 0 0 " Height="35" Width="35" Margin="5" Background="LightGray"/>
+                    <Button Content="↓" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="MiddleRotorStateDown"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">
-                    <TextBlock Grid.Column="2" Text="{Binding RightRotorLabelText}" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding ComboBoxItems}" DisplayMemberPath="Text" Margin="5"/>
-                    <Button Content="{Binding ArrowUp}" Height="25" Width="50"/>
-                    <TextBlock Text="{Binding LeftRotorState}" TextAlignment="Center" Padding="0 10 0 0 " Height="35" Width="35" Margin="5" Background="LightGray"/>
-                    <Button Content="{Binding ArrowDown}" Height="25" Width="50"/>
+                    <TextBlock Grid.Column="2" Text="Right Rotor" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding RotorComboBoxItems}" IsEnabled="{Binding NotStarted}" SelectedItem="{Binding SelectedRightRotor}" DisplayMemberPath="Text" Margin="5"/>
+                    <Button Content="↑" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="RightRotorStateUp"/>
+                    <TextBlock Text="{Binding RightRotorState}" TextAlignment="Center" Padding="0 10 0 0 " Height="35" Width="35" Margin="5" Background="LightGray"/>
+                    <Button Content="↓" IsEnabled="{Binding NotStarted}" Height="25" Width="50" x:Name="RightRotorStateDown"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="4">
-                    <TextBlock Grid.Column="4" Text="{Binding ReflectorLabelText}" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding ComboBoxItems}" DisplayMemberPath="Text" Margin="5"/>
+                    <TextBlock Grid.Column="4" Text="Reflector" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding ReflectorComboBoxItems}" IsEnabled="{Binding NotStarted}" SelectedItem="{Binding SelectedReflector}" DisplayMemberPath="Text" Margin="5"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="6">
-                    <TextBlock Grid.Column="5" Text="{Binding PlugboardLabelText}" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding ComboBoxItems}" DisplayMemberPath="Text" Margin="5"/>
+                    <TextBlock Grid.Column="5" Text="Plugboard" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding PlugboardComboBoxItems}" IsEnabled="{Binding NotStarted}" SelectedItem="{Binding SelectedPlugboard}" DisplayMemberPath="Text" Margin="5"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="7">
-                    <Button Content="{Binding FastInitButtonContent}" Height="30" Width="60" HorizontalAlignment="Right" Margin="0 68 0 0 "/>
-                    <Grid Margin="0 10">
+                    <Grid HorizontalAlignment="Right">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.5*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding ArrowRight}" FontSize="32" HorizontalAlignment="Right" Margin="0 0 0 5"/>
-                        <Button Grid.Column="1" Content="{Binding ApplyButtonContent}" Height="30" Width="75" HorizontalAlignment="Right"/>
+                        <Button Grid.Column="0" Content="Random Init" x:Name="RandomInit" Height="30" Width="85" HorizontalAlignment="Right" Margin="0 20 10 0 "/>
+                        <Button Grid.Column="1" Content="Reset" x:Name="Reset" Height="30" Width="75" HorizontalAlignment="Right" Margin="0 20 0 0 "/>
                     </Grid>
+                    
+                    <Grid Margin="0 10 0 5" HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Name="NeedToApplyArrow" Text="→" Visibility="{Binding NeedToApply, Converter={StaticResource VisibilityConverter}}" FontSize="34" Foreground="Red" HorizontalAlignment="Right" Margin="0 0 10 5"/>
+                        <Button Grid.Column="1" Content="Apply" x:Name="Apply" Height="30" Width="75" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <TextBlock Text="Ready" Visibility="{Binding Applied, Converter={StaticResource VisibilityConverter}}" FontSize="20" Foreground="LawnGreen" Height="30" Width="auto" HorizontalAlignment="Right" Margin="0 0 12 0"/>
                 </StackPanel>
             </Grid>
 
         </Grid>
 
 
-        <Grid Grid.Row="1" Margin="10 40 10 10">
+        <Grid Name="Keyboard" Grid.Row="1" Margin="10 25 10 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -110,16 +124,16 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Q" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="W" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="E" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="R" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="T" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="Z" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="U" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="I" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="O" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="P" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="Q" Name="Q" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="W" Name="W" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="E" Name="E" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="R" Name="R" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="T" Name="T" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="Z" Name="Z" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="U" Name="U" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="I" Name="I" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="O" Name="O" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="P" Name="P" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
                 </StackPanel>
             </Grid>
 
@@ -131,15 +145,15 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="A" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="S" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="D" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="F" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="G" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="H" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="J" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="K" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="L" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="A" Name="A" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="S" Name="S" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="D" Name="D" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="F" Name="F" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="G" Name="G" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="H" Name="H" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="J" Name="J" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="K" Name="K" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="L" Name="L" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
                 </StackPanel>
             </Grid>
 
@@ -151,19 +165,30 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Y" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="X" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="C" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="V" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="B" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="N" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
-                    <Button Content="M" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="Y" Name="Y" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="X" Name="X" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="C" Name="C" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="V" Name="V" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="B" Name="B" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="N" Name="N" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
+                    <Button Content="M" Name="M" IsEnabled="False" FontSize="18" FontWeight="DemiBold" Width="35" Height="35" Margin="10 0"/>
                 </StackPanel>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="2">
-            <TextBox Margin="0 25 0 0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" 
+                     Text="{Binding Output}" 
+                     IsReadOnly="{Binding TextBoxReadonly}" 
+                     TextWrapping="Wrap" 
+                     AcceptsReturn="True" 
+                     VerticalScrollBarVisibility="Auto"
+                     Margin="0 10 5 0"/>
         </Grid>
     </Grid>
 </mah:MetroWindow>

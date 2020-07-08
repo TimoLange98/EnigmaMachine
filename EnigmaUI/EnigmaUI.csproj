@@ -107,6 +107,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="PropertyChangedExtension.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Page Include="ShellView.xaml">

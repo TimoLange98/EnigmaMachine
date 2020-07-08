@@ -14,7 +14,7 @@ namespace EnigmaClassLibrary
 
         public int Process(int input)
         {
-            var connection = Connections.Find(c => c[0] == 0);
+            var connection = Connections.Find(c => c[0] == input);
             return connection == default ? input : connection[1];
         }
 

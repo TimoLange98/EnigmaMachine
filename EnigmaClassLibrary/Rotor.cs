@@ -10,16 +10,23 @@ namespace EnigmaClassLibrary
         public readonly List<int[]> Wheel;
 
         public Rotor(List<int[]> Wheel)
-            => this.Wheel = Wheel.ToList();
-
+        {
+            this.Wheel = Wheel.ToList();
+        }
 
         public int Process(int index, bool reflected = false)
-            => !reflected ? Wheel.Find(connection => connection[0] == index)[1] :
-                            Wheel.Find(connection => connection[1] == index)[0];
-
+        {
+            return !reflected ? Wheel.Find(connection => connection[0] == index)[1] :
+                                       Wheel.Find(connection => connection[1] == index)[0];
+        }
 
         public void Rotate(int times = 1)
         {
+            if (times == 0)
+            {
+                return;
+            }
+
             foreach (var connection in Wheel)
             {
                 if (connection[0] + 1 > Wheel.Count - 1)

@@ -7,7 +7,7 @@ namespace EnigmaClassLibrary
 {
     public class Machine
     {
-        private static readonly char[] Alphabet = Enumerable.Range('A', 26).Select(c => (char)c).ToArray();
+        readonly char[] Alphabet = Enumerable.Range('A', 26).Select(c => (char)c).ToArray();
 
         private readonly Rotor LeftRotor;
         private readonly Rotor MiddleRotor;
@@ -34,6 +34,7 @@ namespace EnigmaClassLibrary
             RightRotor = new Rotor(GetConnections(RightRotorPath));
             RightRotor.Rotate(RightRotorState);
 
+
             Reflector = new Reflector(GetConnections(ReflectorPath));
 
             Plugboard = new Plugboard(GetConnections(PlugboardPath));
@@ -43,13 +44,25 @@ namespace EnigmaClassLibrary
             RightRotorRotations = RightRotorState;
         }
 
+        public (char, int, int, int) ProcessChar(char input)
+        {
+            char output;
+
+            if (char.IsLetter(input))
+                output = Process(input);
+            else
+                output = input;
+
+            return (output, LeftRotorRotations, MiddleRotorRotations, RightRotorRotations);
+        }
+
         public (string, int, int, int) ProcessText(string input)
         {
             var output = "";
 
             foreach (var character in input.ToUpper().ToCharArray())
             {
-                if (Alphabet.Contains(character))
+                if (char.IsLetter(character))
                     output += Process(character);
                 else
                     output += character;
@@ -59,9 +72,9 @@ namespace EnigmaClassLibrary
 
         private char Process(char inputCharacter)
         {
-            var newIndex = Plugboard.Process(inputCharacter);
-            newIndex = Array.FindIndex(Alphabet, c => c == newIndex);
+            var newIndex = Array.FindIndex(Alphabet, c => c == inputCharacter);
 
+            newIndex = Plugboard.Process(newIndex);
             newIndex = LeftRotor.Process(newIndex);
             newIndex = MiddleRotor.Process(newIndex);
             newIndex = RightRotor.Process(newIndex);
